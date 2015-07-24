@@ -3,7 +3,7 @@
 
 galaxy_info:
     author: williamyeh
-    description: Install and configure mongodb_exporter
+    description: Install and configure mongodb_exporter for Prometheus
     license: MIT
 
     min_ansible_version: 1.8
