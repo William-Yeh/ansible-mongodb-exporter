@@ -1,0 +1,38 @@
+# Dockerfile for building image that contains software stack provisioned by Ansible.
+#
+# Version  1.0
+#
+
+
+# pull base image
+FROM williamyeh/ansible:ubuntu14.04-onbuild
+
+MAINTAINER William Yeh <william.pjyeh@gmail.com>
+
+
+#
+# build phase
+#
+
+RUN echo "===> Patching test.yml playbook to exclude roles that are unused in Docker version..."  && \
+    sed -i -e 's/\(\- williamyeh\)/#\1/g' test.yml
+
+##ENV REQUIREMENTS test/requirements.yml
+ENV PLAYBOOK test.yml
+RUN ansible-playbook-wrapper
+
+
+
+#
+# test phase
+#
+
+RUN echo "===> Installing curl for testing purpose..."  && \
+    DEBIAN_FRONTEND=noninteractive  \
+    apt-get install -y -f curl
+
+
+VOLUME ["/data"]
+ENV    RESULT     /data/result-ubuntu14.04
+
+CMD  sed -i -e 's/localhost/mongo/' /etc/init.d/mongodb_exporter  &&  service mongodb_exporter start  &&  sleep 30  &&  curl http://localhost:9001/metrics  > $RESULT

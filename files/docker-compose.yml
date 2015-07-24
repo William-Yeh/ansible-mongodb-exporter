@@ -1,0 +1,4 @@
+buildexe:
+  build: .
+  volumes:
+    - .:/dist

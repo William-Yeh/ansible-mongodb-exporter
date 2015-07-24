@@ -1,0 +1,17 @@
+- hosts: all
+  sudo: True
+  tasks:
+    - include: 'tasks/main.yml'
+  handlers:
+    - include: 'handlers/main.yml'
+  vars_files:
+    - 'defaults/main.yml'
+
+  roles:
+    - williamyeh.mongodb
+    - williamyeh.prometheus
+
+  vars:
+
+    prometheus_components: [ "prometheus" ]
+    prometheus_conf_main:  test/prometheus.yml.j2

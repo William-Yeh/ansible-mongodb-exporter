@@ -1,0 +1,60 @@
+---
+# file: tasks/main.yml
+# Top-level installer for mongodb_exporter.
+#
+# @see https://github.com/dcu/mongodb_exporter
+#
+
+- name: set role variables, if necessary
+  include: set-role-variables.yml
+
+
+- name: install libselinux-python binary for Ansible to work
+  yum: name=libselinux-python state=present
+  when: ansible_pkg_mgr == "yum"
+
+
+- name: create Prometheus group
+  group: name=prometheus state=present
+
+- name: create Prometheus user
+  user:
+    name: prometheus
+    group: prometheus
+    createhome: no
+    shell: /sbin/nologin
+    comment: "Prometheus User"
+    state: present
+
+- name: mkdir for general cases
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_group }}"
+    mode: "u=rwx,g=rx,o="
+  with_items:
+    - "{{ prometheus_install_path }}"
+    - "{{ prometheus_log_path }}"
+    - "{{ prometheus_pid_path }}"
+
+
+- name: install helper utility "gosu"
+  include: install-gosu.yml
+
+
+
+
+- name: copy mongodb_exporter executable
+  copy: src="../files/mongodb_exporter-linux-amd64"  dest={{ prometheus_install_path }}/mongodb_exporter mode="a+x"
+
+- name: set prometheus variables
+  copy: src="../files/etc-default-mongodb_exporter"  dest=/etc/default/mongodb_exporter
+
+- name: copy INIT script to server
+  template: src="../templates/mongodb_exporter.sysvinit.{{ ansible_os_family|lower }}.sh.j2"  dest="/etc/init.d/mongodb_exporter"  mode="a+x"
+  notify:
+    - restart mongodb_exporter
+
+- name: set INIT status
+  service: name=mongodb_exporter enabled=yes

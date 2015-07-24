@@ -1,0 +1,34 @@
+---
+
+#
+# variables needed to be defined in user's playbook
+#
+
+
+
+#
+# user-configurable defaults
+#
+
+prometheus_user:   prometheus
+prometheus_group:  prometheus
+
+gosu_version:  1.4
+
+
+prometheus_install_path:         /opt/prometheus
+prometheus_log_path:             /var/log/prometheus
+prometheus_pid_path:             /var/run/prometheus
+
+mongodb_exporter_mongodb_uri:    "mongodb://localhost:27017"
+
+
+
+#
+# derived variables; internal use only.
+#
+
+
+#---- the following vars are handled in tasks/set-role-variables.yml ------
+
+#mongodb_exporter_use_service:       True      # use "service" command to start/restart prometheus?
