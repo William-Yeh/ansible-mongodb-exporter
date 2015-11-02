@@ -8,7 +8,7 @@ williamyeh.mongodb_exporter for Ansible Galaxy
 
 ## Summary
 
-Role name in Ansible Galaxy: **[williamyeh.mongodb_exporter](https://galaxy.ansible.com/list#/roles/4465)**
+Role name in Ansible Galaxy: **[williamyeh.mongodb_exporter](https://galaxy.ansible.com/detail#/role/4465)**
 
 This Ansible role has the following features for [mongodb_exporter](https://github.com/dcu/mongodb_exporter) (a MongoDB metrics exporter for [Prometheus](http://prometheus.io/)):
 
