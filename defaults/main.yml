@@ -13,7 +13,7 @@
 prometheus_user:   prometheus
 prometheus_group:  prometheus
 
-gosu_version:  1.4
+gosu_version:  1.7
 
 
 prometheus_install_path:         /opt/prometheus

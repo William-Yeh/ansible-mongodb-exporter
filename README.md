@@ -57,7 +57,7 @@ prometheus_pid_path:       /var/run/prometheus
 
 
 # version of helper utility "gosu"
-gosu_version:  1.4
+gosu_version:  1.7
 ```
 
 
