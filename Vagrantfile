@@ -6,8 +6,8 @@ Vagrant.configure(2) do |config|
         #node.vm.box = "ubuntu/precise64"
         #node.vm.box = "debian/jessie64"
         #node.vm.box = "debian/wheezy64"
-        #node.vm.box = "chef/centos-7.1"
-        #node.vm.box = "chef/centos-6.6"
+        #node.vm.box = "bento/centos-7.2"
+        ###node.vm.box = "bento/centos-6.7"
 
         node.vm.provision "ansible" do |ansible|
             ansible.playbook = "test.yml"
@@ -15,6 +15,7 @@ Vagrant.configure(2) do |config|
             ansible.verbose = "vvv"
         end
 
+        node.vm.network :forwarded_port, guest: 9001, host: 9001
         node.vm.network :forwarded_port, guest: 9090, host: 9090
 
     end
@@ -31,7 +32,7 @@ Vagrant.configure(2) do |config|
             docker build  -f test/Dockerfile-debian8      -t mongodb_exporter_jessie   .
             docker build  -f test/Dockerfile-debian7      -t mongodb_exporter_wheezy   .
             docker build  -f test/Dockerfile-centos7      -t mongodb_exporter_centos7  .
-            docker build  -f test/Dockerfile-centos6      -t mongodb_exporter_centos6  .
+            ###docker build  -f test/Dockerfile-centos6      -t mongodb_exporter_centos6  .
         SHELL
     end
 

@@ -13,12 +13,21 @@
 prometheus_user:   prometheus
 prometheus_group:  prometheus
 
-gosu_version:  1.7
+gosu_version: 1.7
+prometheus_go_version:   1.5.3
 
 
-prometheus_install_path:         /opt/prometheus
-prometheus_log_path:             /var/log/prometheus
-prometheus_pid_path:             /var/run/prometheus
+prometheus_install_path:  /opt/prometheus
+prometheus_log_path:      /var/log/prometheus
+prometheus_pid_path:      /var/run/prometheus
+
+prometheus_download_path: /tmp
+prometheus_workdir:       "{{ prometheus_download_path }}/prometheus_workdir"
+prometheus_goroot:        "{{ prometheus_workdir }}/go"
+prometheus_gopath:        "{{ prometheus_workdir }}/gopath"
+
+mongodb_exporter_git_url:  "https://github.com/dcu/mongodb_exporter.git"
+mongodb_exporter_src_path: "{{ prometheus_gopath }}/src/github.com/dcu/mongodb_exporter"
 
 mongodb_exporter_mongodb_uri:    "mongodb://localhost:27017"
 

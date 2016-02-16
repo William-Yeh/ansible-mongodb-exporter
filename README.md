@@ -2,17 +2,16 @@
 williamyeh.mongodb_exporter for Ansible Galaxy
 ============
 
-[![Circle CI](https://circleci.com/gh/William-Yeh/ansible-mongodb-exporter.svg?style=shield)](https://circleci.com/gh/William-Yeh/ansible-mongodb-exporter)
-
+[![Circle CI](https://circleci.com/gh/William-Yeh/ansible-mongodb-exporter.svg?style=shield)](https://circleci.com/gh/William-Yeh/ansible-mongodb-exporter) [![Build Status](https://travis-ci.org/William-Yeh/ansible-mongodb-exporter.svg?branch=master)](https://travis-ci.org/William-Yeh/ansible-mongodb-exporter)
 
 
 ## Summary
 
-Role name in Ansible Galaxy: **[williamyeh.mongodb_exporter](https://galaxy.ansible.com/detail#/role/4465)**
+Role name in Ansible Galaxy: **[williamyeh.mongodb_exporter](https://galaxy.ansible.com/williamyeh/mongodb_exporter/)**
 
 This Ansible role has the following features for [mongodb_exporter](https://github.com/dcu/mongodb_exporter) (a MongoDB metrics exporter for [Prometheus](http://prometheus.io/)):
 
- - Install a pre-compiled version of mongodb_exporter (I hope the maintainer of mongodb_exporter will provide official binary releases).
+ - Install mongodb_exporter by compiling its Golang source code (I hope the maintainer of mongodb_exporter will provide official binary releases).
  - Handlers for restart/reload/stop events.
 
 

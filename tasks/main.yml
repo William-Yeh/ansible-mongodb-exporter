@@ -13,6 +13,10 @@
   yum: name=libselinux-python state=present
   when: ansible_pkg_mgr == "yum"
 
+- name: install dependencies for compiling Prometheus source code
+  include: install-compile-tools.yml
+
+
 
 - name: create Prometheus group
   group: name=prometheus state=present
@@ -44,9 +48,25 @@
 
 
 
+- name: build mongodb_exporter source code
+  command: go get -u github.com/dcu/mongodb_exporter
+  args:
+    creates: "{{ prometheus_gopath }}/bin/mongodb_exporter"
+  environment:
+    GO15VENDOREXPERIMENT: 1
+    GOROOT: "{{ prometheus_goroot }}"
+    GOPATH: "{{ prometheus_gopath }}"
+    PATH: "{{ ansible_env.PATH }}:{{ prometheus_goroot }}/bin:{{ prometheus_gopath }}/bin"
 
-- name: copy mongodb_exporter executable
-  copy: src="../files/mongodb_exporter-linux-amd64"  dest={{ prometheus_install_path }}/mongodb_exporter mode="a+x"
+- name: copy the built mongodb_exporter to the install path
+  command: "cp  {{ prometheus_gopath }}/bin/mongodb_exporter  {{ prometheus_install_path }}"
+  args:
+    creates: "{{ prometheus_install_path }}/mongodb_exporter"
+
+
+
+#- name: copy mongodb_exporter executable
+#  copy: src="../files/mongodb_exporter-linux-amd64"  dest={{ prometheus_install_path }}/mongodb_exporter mode="a+x"
 
 - name: set prometheus variables
   copy: src="../files/etc-default-mongodb_exporter"  dest=/etc/default/mongodb_exporter

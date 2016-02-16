@@ -1,9 +1,8 @@
-machine:
-  services:
+sudo: true
+services:
     - docker
 
-dependencies:
-  override:
+before_install:
     - docker info
     - docker version
 
@@ -14,8 +13,7 @@ dependencies:
     - docker build  -f test/Dockerfile-centos7      -t mongodb_exporter_centos7  .
     ###- docker build  -f test/Dockerfile-centos6      -t mongodb_exporter_centos6  .
 
-test:
-  override:
+script:
     - docker run --name mongo -d mongo
 
     - docker run -v $(pwd):/data --link mongo:mongo mongodb_exporter_trusty
@@ -32,3 +30,6 @@ test:
     - grep '^mongodb_connections' result-debian7
     - grep '^mongodb_connections' result-centos7
     ###- grep '^mongodb_connections' result-centos6
+
+notifications:
+    webhooks: https://galaxy.ansible.com/api/v1/notifications/

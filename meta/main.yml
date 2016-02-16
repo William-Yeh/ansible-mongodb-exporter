@@ -6,7 +6,7 @@ galaxy_info:
     description: Install and configure mongodb_exporter for Prometheus
     license: MIT
 
-    min_ansible_version: 1.8
+    min_ansible_version: 2.0
 
     platforms:
         - name: Ubuntu
@@ -19,12 +19,15 @@ galaxy_info:
               - wheezy
         - name: EL
           versions:
-              - 6
+              #- 6
               - 7
-    categories:
+
+    galaxy_tags:
         - system
         - monitoring
+        - prometheus
         - database
-        - database:nosql
+        - nosql
+        - mongodb
 
 dependencies: []

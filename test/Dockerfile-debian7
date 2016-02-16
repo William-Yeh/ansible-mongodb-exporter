@@ -17,7 +17,6 @@ MAINTAINER William Yeh <william.pjyeh@gmail.com>
 RUN echo "===> Patching test.yml playbook to exclude roles that are unused in Docker version..."  && \
     sed -i -e 's/\(\- williamyeh\)/#\1/g' test.yml
 
-##ENV REQUIREMENTS test/requirements.yml
 ENV PLAYBOOK test.yml
 RUN ansible-playbook-wrapper
 
@@ -38,4 +37,7 @@ RUN echo "===> Installing curl for testing purpose..."  && \
 VOLUME ["/data"]
 ENV    RESULT     /data/result-debian7
 
-CMD  sed -i -e 's/localhost/mongo/' /etc/init.d/mongodb_exporter  &&  service mongodb_exporter start  &&  sleep 30  &&  curl http://localhost:9001/metrics  > $RESULT
+CMD  \
+     sed -i -e 's/localhost/mongo/' /etc/init.d/mongodb_exporter  && \
+     service mongodb_exporter start  &&  sleep 30  && \
+     curl http://localhost:9001/metrics  > $RESULT
