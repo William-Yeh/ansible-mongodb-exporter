@@ -18,7 +18,7 @@ RUN echo "===> Patching test.yml playbook to exclude roles that are unused in Do
     sed -i -e 's/\(\- williamyeh\)/#\1/g' test.yml
 
 ENV PLAYBOOK test.yml
-RUN ansible-playbook-wrapper
+RUN ansible-playbook-wrapper --extra-vars "mongodb_exporter_use_systemd=false"
 
 
 

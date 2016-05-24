@@ -27,6 +27,11 @@ Vagrant.configure(2) do |config|
 
         node.vm.provision "shell", inline: <<-SHELL
             cd /vagrant
+
+            cd files
+            docker-compose run buildexe
+            cd ..
+
             docker build  -f test/Dockerfile-ubuntu14.04  -t mongodb_exporter_trusty   .
             docker build  -f test/Dockerfile-ubuntu12.04  -t mongodb_exporter_precise  .
             docker build  -f test/Dockerfile-debian8      -t mongodb_exporter_jessie   .

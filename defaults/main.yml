@@ -13,8 +13,8 @@
 prometheus_user:   prometheus
 prometheus_group:  prometheus
 
-gosu_version: 1.7
-prometheus_go_version:   1.5.3
+gosu_version: 1.9
+prometheus_go_version:   1.6.2
 
 
 prometheus_install_path:  /opt/prometheus
@@ -40,4 +40,4 @@ mongodb_exporter_mongodb_uri:    "mongodb://localhost:27017"
 
 #---- the following vars are handled in tasks/set-role-variables.yml ------
 
-#mongodb_exporter_use_service:       True      # use "service" command to start/restart prometheus?
+#mongodb_exporter_use_systemd: False  # use "systemd" to start/restart service?

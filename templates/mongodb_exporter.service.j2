@@ -1,0 +1,17 @@
+[Unit]
+Description=mongodb_exporter - MongoDB metrics exporter for Prometheus.
+Documentation=https://github.com/William-Yeh/ansible-mongodb-exporter
+After=network.target
+
+[Service]
+Type=simple
+
+#ExecStartPre=/bin/sh -c  " mkdir -p '{{ prometheus_pid_path }}' '{{ prometheus_log_path }}' "
+#ExecStartPre=/bin/sh -c  " chown -R {{ prometheus_user }} '{{ prometheus_pid_path }}' '{{ prometheus_log_path }}' "
+#PIDFile={{ prometheus_pid_path }}/consul_exporter.pid
+
+
+User={{ prometheus_user }}
+Group={{ prometheus_group }}
+
+ExecStart={{ prometheus_install_path }}/mongodb_exporter  -logtostderr=true  -mongodb.uri={{ mongodb_exporter_mongodb_uri }}

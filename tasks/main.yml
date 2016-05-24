@@ -43,8 +43,9 @@
     - "{{ prometheus_pid_path }}"
 
 
-- name: install helper utility "gosu"
+- name: install helper utility "gosu", if necessary
   include: install-gosu.yml
+  when: not mongodb_exporter_use_systemd|bool
 
 
 
@@ -75,6 +76,12 @@
   template: src="../templates/mongodb_exporter.sysvinit.{{ ansible_os_family|lower }}.sh.j2"  dest="/etc/init.d/mongodb_exporter"  mode="a+x"
   notify:
     - restart mongodb_exporter
+  when: not mongodb_exporter_use_systemd|bool
+
+- name: copy systemd config to server
+  template: src="../templates/mongodb_exporter.service.j2"  dest="/lib/systemd/system/mongodb_exporter.service"
+  when: mongodb_exporter_use_systemd
+
 
 - name: set INIT status
   service: name=mongodb_exporter enabled=yes

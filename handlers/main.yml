@@ -4,24 +4,9 @@
 
 - name: restart mongodb_exporter
   service: name=mongodb_exporter state=restarted
-  when: mongodb_exporter_use_service|bool
-#
-#- name: restart mongodb_exporter
-#  command: /usr/bin/env mongodb_exporter -s reload
-#  when: not mongodb_exporter_use_service|bool
 
 - name: reload mongodb_exporter
   service: name=mongodb_exporter state=reloaded
-  when: mongodb_exporter_use_service|bool
-#
-#- name: reload mongodb_exporter
-#  command: /usr/bin/env mongodb_exporter -s reload
-#  when: not mongodb_exporter_use_service|bool
 
 - name: stop mongodb_exporter
   service: name=mongodb_exporter state=stopped
-  when: mongodb_exporter_use_service|bool
-#
-#- name: stop mongodb_exporter
-#  command: /usr/bin/env mongodb_exporter -s stop
-#  when: not mongodb_exporter_use_service|bool

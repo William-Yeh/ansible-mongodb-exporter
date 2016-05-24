@@ -4,7 +4,7 @@
 #
 
 # pull base image
-FROM golang:1.4.2
+FROM golang:1.6.2
 MAINTAINER William Yeh <william.pjyeh@gmail.com>
 
 
@@ -14,13 +14,6 @@ ENV EXE_NAME      mongodb_exporter-linux-amd64
 ENV GOPATH        /opt
 ENV PATH          $GOPATH/bin:$PATH
 WORKDIR           /opt
-
-
-RUN echo "===> Fetch and build aux tool: go-bindata ..."
-RUN go get -u github.com/jteeuwen/go-bindata             
-RUN cd /opt/src/github.com/jteeuwen/go-bindata   && \
-    make                                                  
-
 
 RUN echo "===> Fetch and build main project..."
 RUN go get -u $PROJECT_REPO

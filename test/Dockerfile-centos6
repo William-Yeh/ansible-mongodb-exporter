@@ -40,5 +40,6 @@ VOLUME ["/data"]
 ENV    RESULT     /data/result-centos6
 
 CMD  \
-     sed -i -e 's/localhost/mongo/' /etc/init.d/mongodb_exporter  && \ service mongodb_exporter start  &&  sleep 30  && \
+     sed -i -e 's/localhost/mongo/' /etc/init.d/mongodb_exporter  && \
+     service mongodb_exporter start  &&  sleep 30  && \
      curl http://localhost:9001/metrics  > $RESULT

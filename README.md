@@ -15,6 +15,8 @@ This Ansible role has the following features for [mongodb_exporter](https://gith
  - Handlers for restart/reload/stop events.
 
 
+NOTE: If you want to install Prometheus itself or other exporters, see **[williamyeh.prometheus](https://github.com/William-Yeh/ansible-prometheus)** for more info.
+
 
 
 ## Role Variables
@@ -36,6 +38,11 @@ None.
 mongodb_exporter_mongodb_uri:  "mongodb://localhost:27017"
 ```
 
+If the Linux distributions are equipped with systemd, this role will use this mechanism accordingly. You can disable this (i.e., use traditional SysV-style init script) by defining the variable to false: `mongodb_exporter_use_systemd: false`.
+
+```yaml
+mongodb_exporter_use_systemd
+```
 
 **Prometheus** user-configurable defaults (of course, a subset of optional variables in [williamyeh.prometheus](https://github.com/William-Yeh/ansible-prometheus)):
 
@@ -56,7 +63,7 @@ prometheus_pid_path:       /var/run/prometheus
 
 
 # version of helper utility "gosu"
-gosu_version:  1.7
+gosu_version:  1.9
 ```
 
 
@@ -89,7 +96,7 @@ Simple example:
 # file: simple-playbook.yml
 
 - hosts: all
-  sudo: True
+  become: True
   roles:
     - williamyeh.mongodb_exporter
 
